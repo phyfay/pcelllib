@@ -25,8 +25,8 @@ def ecurvesym(rmin=10, theta=np.pi/2, n=50):
     for i in range(1,n):
       xmid=(np.tan(np.pi/2-theta2)*x[n-1]+y[n-1]+np.tan(theta2)*x[n-i-1]-y[n-i-1])/(np.tan(theta2)+np.tan(np.pi/2-theta2))
       ymid=-np.tan(np.pi/2-theta2)*(xmid-x[n-1])+y[n-1]
-      x=np.append(x,x[n-i-1]+2*(xmid-x[n-i-1]))
-      y=np.append(y,y[n-i-1]+2*(ymid-y[n-i-1]))
+      x=np.append(x,2*xmid-x[n-i-1])
+      y=np.append(y,2*ymid-y[n-i-1])
       #x=np.append(x,y[n-1]+x[n-1]-y[n-i-1]) #for 90 degree bend
       #y=np.append(y,y[n-1]+x[n-1]-x[n-i-1]) #for 90 degree bend
     return(x,y)
