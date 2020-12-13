@@ -61,7 +61,7 @@ def ebendw(rmin=10, theta=np.pi/2, w=1, n=50):
 
 class Ebend(pya.PCellDeclarationHelper):
   """
-  The PCell declaration for the circle
+  The PCell declaration for the Euler Bend
   """
 
   def __init__(self):
@@ -80,7 +80,6 @@ class Ebend(pya.PCellDeclarationHelper):
   def display_text_impl(self):
     # Provide a descriptive text for the cell
     return "Euler Bend(W=" + str(self.w) + ",Rmin=" + ('%.3f' % self.rmin) + ")"
-
     
   def produce_impl(self):
     # This is the main part of the implementation: create the layout
@@ -100,7 +99,6 @@ class Ebend(pya.PCellDeclarationHelper):
 
     # create the shape
     self.cell.shapes(self.l_layer).insert(pya.Polygon(pts))
-
 
 
 class MyLib(pya.Library):
