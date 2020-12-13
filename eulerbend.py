@@ -5,9 +5,9 @@ import numpy as np
 
 def ecurvesym(rmin=10, theta=np.pi/2, n=50):
    #Reference https://en.wikipedia.org/wiki/Euler_spiral
-    #normalized euler curve: l=1/r, theta=l/2/r;  l=1/r/a**2, theta=l/2/r 
+    #normalized euler curve: l=1/r, theta=l/2/r;  
     theta2=theta/2
-    ds=np.sqrt(theta2)/n #0.01 #ds step for normalized euler curve
+    ds=np.sqrt(theta2)/n #ds step for normalized euler curve, ~0.01 to give smooth curve
     #n=int(np.sqrt(theta2)/ds) #number of points determined by thetamax and ds
     x=np.zeros(n)
     y=np.zeros(n)
@@ -15,7 +15,8 @@ def ecurvesym(rmin=10, theta=np.pi/2, n=50):
       s=i*ds
       x[i]=x[i-1]+np.cos(s*s)*ds
       y[i]=y[i-1]+np.sin(s*s)*ds
-   #scale to the defined rmin@theta2, 1/rmin/rmin/a^2/4=thetamax ==>sfactor=a=sqrt(1/thetamax)/2/rmin
+   #scale to the defined rmin@theta2, l=1/r/a**2, theta=l/2/r=1/r^2/a^2/4=a^2*l^2 
+   #==> 1/rmin/rmin/a^2/4=thetamax ==>sfactor=a=sqrt(1/thetamax)/2/rmin
     sfactor=np.sqrt(1/theta2)/2/rmin
     x=x/sfactor
     y=y/sfactor    
@@ -26,6 +27,8 @@ def ecurvesym(rmin=10, theta=np.pi/2, n=50):
       ymid=-np.tan(np.pi/2-theta2)*(xmid-x[n-1])+y[n-1]
       x=np.append(x,x[n-i-1]+2*(xmid-x[n-i-1]))
       y=np.append(y,y[n-i-1]+2*(ymid-y[n-i-1]))
+      #x=np.append(x,y[n-1]+x[n-1]-y[n-i-1]) #for 90 degree bend
+      #y=np.append(y,y[n-1]+x[n-1]-x[n-i-1]) #for 90 degree bend
     return(x,y)
     
 def ebendw(rmin=10, theta=np.pi/2, w=1, n=50):
